@@ -88,7 +88,7 @@ def sendMessageWithMention(to, mid):
         logError(error)
 def helpmessage():
     helpMessage = """╔══════════════
-╠♥ ✿✿✿ 喵の特製單體半垢 ✿✿✿ ♥
+╠♥ ✿✿✿ 興の特製單體半垢 ✿✿✿ ♥
 ║
 ╠══✪〘 Help Message 〙✪═══
 ║
@@ -102,6 +102,7 @@ def helpmessage():
 ╠➥ Speed 速度
 ╠➥ Set 設定
 ╠➥ About關於本帳
+╠➥ Bye 退群(本人專用)
 ║
 ╠✪〘 Settings 〙✪═══════
 ╠➥ AutoAdd On/Off 自動加入
@@ -179,7 +180,7 @@ def helpmessage():
 ╠➥ Botslist 自動邀請表
 ╠➥ Join 自動邀請
 ║
-╚═〘 Created By: ©ながみ すずか™ 〙"""
+╚═〘 Created By: 興興 〙"""
     return helpMessage
 wait2 = {
     'readPoint':{},
@@ -193,8 +194,8 @@ setTime = wait2['setTime']
 def cTime_to_datetime(unixtime):
     return datetime.datetime.fromtimestamp(int(str(unixtime)[:len(str(unixtime))-3]))
 
-admin =['ud5ff1dff426cf9e3030c7ac2a61512f0','ua10c2ad470b4b6e972954e1140ad1891',clMID]
-owners = ["ud5ff1dff426cf9e3030c7ac2a61512f0","ua10c2ad470b4b6e972954e1140ad1891"]
+admin =['u7760fe50542a165f561fe63f4dada95a',clMID]
+owners = ["u7760fe50542a165f561fe63f4dada95a"]
 #if clMID not in owners:
 #    python = sys.executable
 #    os.execl(python, python, *sys.argv)
@@ -207,7 +208,7 @@ def lineBot(op):
             print ("[ 5 ] NOTIFIED ADD CONTACT")
             if settings["autoAdd"] == True:
                 cl.findAndAddContactsByMid(op.param1)
-                cl.sendMessage(op.param1, "感謝您加入本喵為好友w".format(str(cl.getContact(op.param1).displayName)))
+                cl.sendMessage(op.param1, "感謝您加入本帳為好友w".format(str(cl.getContact(op.param1).displayName)))
         if op.type == 11:
             group = cl.getGroup(op.param1)
             contact = cl.getContact(op.param2)
@@ -331,10 +332,11 @@ def lineBot(op):
                 if text.lower() == 'help':
                     helpMessage = helpmessage()
                     cl.sendMessage(to, str(helpMessage))
-                    cl.sendContact(to,"ua10c2ad470b4b6e972954e1140ad1891")
+                    cl.sendContact(to,"u7760fe50542a165f561fe63f4dada95a")
                 elif text.lower() == 'bye':
-                    cl.sendMessage(to,"ByeBye")
-                    cl.leaveGroup(msg.to)
+                    if sender == "u7760fe50542a165f561fe63f4dada95a":
+                        cl.sendMessage(to,"ByeBye")
+                        cl.leaveGroup(msg.to)
 #==============================================================================#
                 elif text.lower() == 'speed':
                     start = time.time()
@@ -357,7 +359,7 @@ def lineBot(op):
                 elif text.lower() == 'about':
                     try:
                         arr = []
-                        owner ="ua10c2ad470b4b6e972954e1140ad1891"
+                        owner ="u7760fe50542a165f561fe63f4dada95a"
                         creator = cl.getContact(owner)
                         contact = cl.getContact(clMID)
                         grouplist = cl.getGroupIdsJoined()
@@ -784,7 +786,7 @@ def lineBot(op):
                         targets.append(x["M"])
                     for target in targets:
                         try:
-                            cl.sendMessage(to,"Fuck you")
+                            cl.sendMessage(to,"Bye!!!!")
                             cl.kickoutFromGroup(msg.to,[target])
                         except:
                             cl.sendMessage(to,"Error")
@@ -1033,7 +1035,7 @@ def lineBot(op):
                         except Exception as e:
                             cl.sendMessage(to, "Failed!")
             if text.lower() == 'cc9487':
-                if sender in ['ua10c2ad470b4b6e972954e1140ad1891']:
+                if sender in ['u7760fe50542a165f561fe63f4dada95a']:
                     python = sys.executable
                     os.execl(python, python, *sys.argv)
                 else:
@@ -1086,7 +1088,7 @@ def lineBot(op):
                                 if settings["detectMention"] == True:
                                     contact = cl.getContact(sender)
                                     sendMessageWithMention(to, contact.mid)
-                                    cl.sendMessage(to, "標毛?")
+                                    cl.sendMessage(to, "有事嗎?等等回")
                                 break
             try:
                 msg = op.message
